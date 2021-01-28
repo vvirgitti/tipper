@@ -8,34 +8,44 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var total = "20"
+    @State var total = "0"
     @State var tipPercent: Double = 12.0
     
     var body: some View {
-        VStack{
-            Text("Tip Calculator")
-                .font(.title)
+        ZStack{
+//            Color.secondary.ignoresSafeArea()
+            VStack{
+                Text("Tip Calculator")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    
+                
+                HStack{
+                    Text("£")
+                    TextField("Total", text: $total)
+                        .overlay(RoundedRectangle(cornerRadius: 5).stroke(lineWidth: 0.25))
+                }
+                .padding()
+                
+                HStack{
+                    Slider(value: $tipPercent, in: 1...30, step: 1.0)
+                    Text("\(Int(tipPercent))%")
+                }
+                .padding()
+                
+                if let totalNum = Double(total) {
+                    HStack{
+                        Text("Total Tip: ")
+                        Text("£\(totalNum * tipPercent / 100, specifier: "%0.2f")").bold().foregroundColor(.purple)
+                    }
             
-            HStack{
-                Text("£")
-                TextField("Total", text: $total)
-                    .border(Color.black, width: 0.25)
-            }
-            .padding()
+                } else {
+                    Text("Please enter a valid numerical value").background(Color.red).foregroundColor(.white)
+                }
             
-            HStack{
-                Slider(value: $tipPercent, in: 1...30, step: 1.0)
-                Text("\(Int(tipPercent))%")
             }
-            .padding()
-            
-            if let totalNum = Double(total) {
-                Text("Total Tip: £\(totalNum * tipPercent / 100, specifier: "%0.2f")")
-            } else {
-                Text("Please enter a valid numerical value")
-            }
-        
         }
+        
     }
 }
 
