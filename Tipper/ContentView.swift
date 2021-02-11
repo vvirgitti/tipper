@@ -11,6 +11,7 @@ struct ContentView: View {
     @State var total = "0"
     @State var tipPercent: Double = 12.0
     
+    
     var body: some View {
         ZStack{
 //            Color.secondary.ignoresSafeArea()
